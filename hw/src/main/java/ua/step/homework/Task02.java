@@ -2,8 +2,10 @@ package ua.step.homework;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Random;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Java. Lesson008. Task02
@@ -23,25 +25,42 @@ public class Task02 {
         Random rnd = new Random(seed);
 
         // TODO: Пишите код здесь
-        int[] array = new int[30];
-        int arrayMax = Integer.MIN_VALUE;
-        int arrayMin = Integer.MAX_VALUE;
+//        int[] array = new int[30];
+//        int arrayMax = Integer.MIN_VALUE;
+//        int arrayMin = Integer.MAX_VALUE;
+//
+//        // Ввод значений и определение мин и макс
+//        for (int i = 0; i < 30; i++) {
+//            array[i] = rnd.nextInt(51 +70) - 70;
+//
+//            if (arrayMax < array[i]) {
+//                arrayMax = array[i];
+//            }
+//            if (arrayMin > array[i]) {
+//                arrayMin = array[i];
+//            }
+//        }
+//
+//        System.out.println(arrayMin + " " + arrayMax);
 
-        // Ввод значений и определение мин и макс
-        for (int i = 0; i < 30; i++) {
-            array[i] = rnd.nextInt(51 +70) - 70;
-//            System.out.print(array[i]);
-//            System.out.print(rnd.nextInt(51+70) - 70); // 0..120 - 70 = -70..+50
-//            System.out.print(" ");
-            if (arrayMax < array[i]) {
-                arrayMax = array[i];
-            }
-            if (arrayMin > array[i]) {
-                arrayMin = array[i];
-            }
-        }
+        int max = 50;
+        int min = -70;
+        int[] arr = Stream.generate(() -> rnd.nextInt(max + 1 - min) + min)
+                .limit(30)
+                .mapToInt(x -> x)
+                .toArray();
 
-        System.out.println(arrayMin + " " + arrayMax);
-//        System.out.println(Arrays.toString(array));
+//        Arrays.stream(arr).forEach(x -> System.out.print(x + " "));
+//        System.out.println();
+
+        Arrays.stream(arr)
+                .min()
+                .stream()
+                .forEach(x -> System.out.print(x + " "));
+        Arrays.stream(arr)
+                .max()
+                .stream()
+                .forEach(x -> System.out.print(x));
+
     }
 }

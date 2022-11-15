@@ -1,6 +1,7 @@
 package ua.step.homework;
 
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 /**
  * Java. Lesson008. Task04
@@ -20,33 +21,53 @@ public class Task04 {
         int len = scanner.nextInt();
 
         // TODO: Пишите код здесь
-        int[] arr = new int[len];
-        int count;
-        int count1 = 0;
+//        int[] arr = new int[len];
+//        int count;
+//        int count1 = 0;
+//
+//        // Ввод значений массива и его копии
+//        for (int i = 0; i < arr.length; i++) {
+//            arr[i] = scanner.nextInt();
+//        }
+////        System.out.print("\n");
+//        // Проверка на отсутствие повторений элементов массива
+//        for (int i = 0; i < arr.length; i++) {
+//            count = 0;
+//            for (int j = 0; j < arr.length; j++) {
+//                if (arr[i] == arr[j]) {
+//                    count++;
+//                }
+//            }
+//            if (count > 1) {
+//                System.out.print("No");
+//                break;
+//            } else {
+//                count1++;
+//            }
+//        }
+//        if (count1 == arr.length) {
+//            System.out.print("Yes");
+//        }
 
-        // Ввод значений массива и его копии
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = scanner.nextInt();
+
+        int[] arr = Stream.generate(() -> scanner.nextInt())
+                .limit(len)
+                .distinct()
+                .mapToInt(x -> x)
+                .toArray();
+
+//        Arrays.stream(arr)
+//                .forEach(x -> System.out.print(x + " "));
+//        System.out.println();
+
+        if (arr.length == len) {    // условия, когда все элементы разные
+            System.out.println("Yes");
+        } else {
+            System.out.println("No");
         }
-//        System.out.print("\n");
-        // Проверка на отсутствие повторений элементов массива
-        for (int i = 0; i < arr.length; i++) {
-            count = 0;
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[i] == arr[j]) {
-                    count++;
-                }
-            }
-            if (count > 1) {
-                System.out.print("No");
-                break;
-            } else {
-                count1++;
-            }
-        }
-        if (count1 == arr.length) {
-            System.out.print("Yes");
-        }
+
+
+
 
     }
 }
